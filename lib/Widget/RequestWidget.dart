@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CustomPopupMenu {
   CustomPopupMenu({
@@ -18,6 +20,7 @@ class RequestWidget extends StatelessWidget {
   final image;
   final color;
   final department;
+  final reason;
   final i;
 
   RequestWidget(
@@ -26,6 +29,7 @@ class RequestWidget extends StatelessWidget {
       this.id,
       this.image,
       this.department,
+        this.reason,
       this.i,
       this.color})
       : super(key: key);
@@ -59,13 +63,107 @@ class RequestWidget extends StatelessWidget {
       child: Container(
         height: 117,
         width: MediaQuery.of(context).size.width - 24,
-        child: Row(
+        child:
+        i==0?Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               child: Row(
                 children: [
-                  Image.asset(image),
+                  Image.network(image),
+                  Container(
+                    margin: EdgeInsets.only(top: 23, bottom: 23, left: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(userName),
+                        Text(department),
+                        Text(reason),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                    margin: EdgeInsets.only(right: 27),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                          onPressed: () async {
+                            String dateFormat = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
+                            await FirebaseDatabase.instance
+                                .reference()
+                                .child('Accepted')
+                                .child(dateFormat).child(id)
+                                .set({
+                              'userName': userName,
+                              "department":department,
+                              "id":id,
+                              "img":image
+                            }).whenComplete(()  {
+                              //updateCount(department);
+                              FirebaseDatabase.instance
+                                  .reference()
+                                  .child('requests')
+                                  .child(dateFormat).child(id).remove();
+                              FirebaseDatabase.instance
+                                  .reference()
+                                  .child('Here')
+                                  .child(dateFormat).child(id).remove();
+
+                              //Navigator.of(context).pop();
+                            });
+                            print("accepted $id");
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.red,
+                          ),
+                          onPressed: () async {
+                            String dateFormat = DateFormat('dd/MM/yyyy').format(DateTime.now());
+
+                            await FirebaseDatabase.instance
+                                .reference()
+                                .child('reject')
+                                .child(dateFormat).child(id)
+                                .set({
+                              'userName': userName,
+                              "department":department,
+                              "id":id,
+                              "img":image
+                            }).whenComplete(()  {
+                              //updateCount(department);
+                              FirebaseDatabase.instance
+                                  .reference()
+                                  .child('requests')
+                                  .child(dateFormat).child(id).remove();
+
+                              print("reject $id");
+                              //Navigator.of(context).pop();
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  )
+            ],
+        ):Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              child: Row(
+                children: [
+                  Image.network(image),
                   Container(
                     margin: EdgeInsets.only(top: 23, bottom: 23, left: 10),
                     child: Column(
@@ -80,72 +178,14 @@ class RequestWidget extends StatelessWidget {
                 ],
               ),
             ),
-            i == 0
-                ? Container(
-                    margin: EdgeInsets.only(right: 27),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          ),
-                          onPressed: () {
-                            print("accepted $id");
-                          },
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.clear,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {
-                            print("reject $id");
-                          },
-                        )
-                      ],
-                    ),
-                  )
-                : Container(),
-            i == 1
-                ? Column(
-                    children: [
-                      _selectPopup(),
-                      // PopupMenuButton<CustomPopupMenu>(
-                      //   child: Icon(
-                      //     Icons.more_vert,
-                      //   ),
-                      //   elevation: 3.2,
-                      //   onCanceled: () {
-                      //     print('You have not chossed anything');
-                      //   },
-                      //   tooltip: 'This is tooltip',
-                      //   // onSelected: 0,
-                      //   itemBuilder: (BuildContext context) {
-                      //     return choices.map((CustomPopupMenu choice) {
-                      //       return PopupMenuItem<CustomPopupMenu>(
-                      //         value: choice,
-                      //         child: Text(choice.title),
-                      //       );
-                      //     }).toList();
-                      //   },
-                      // ),
-                      /*Container(
-                        child: IconButton(
-                            icon: Icon(Icons.more_vert),
-                            onPressed: () {
-                              print("menu");
-                            }),
-                        margin: EdgeInsets.only(right: 10, top: 10),
-                      ),*/
-                      CustomPaint(
-                        painter: OpenPainter(color),
-                      ),
-                    ],
-                  )
-                : Container(),
+             Column(
+              children: [
+                _selectPopup(),
+                CustomPaint(
+                  painter: OpenPainter(color),
+                ),
+              ],
+            )
           ],
         ),
       ),

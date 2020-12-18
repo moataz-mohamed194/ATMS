@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "21165638417",
+    "project_id": "atms-e3288",
+    "storage_bucket": "atms-e3288.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21165638417:android:75d274a79e1024c7a5c2b0",
+        "android_client_info": {
+          "package_name": "com.example.ATMS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0gh5gwfrz_gyi7oxJybOeqzrYk89g7Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21165638417:android:3e2b331e08774793a5c2b0",
+        "android_client_info": {
+          "package_name": "com.example.atms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0gh5gwfrz_gyi7oxJybOeqzrYk89g7Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21165638417:android:b29115580e49569fa5c2b0",
+        "android_client_info": {
+          "package_name": "com.examples.ATMS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0gh5gwfrz_gyi7oxJybOeqzrYk89g7Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21165638417-aen8vesumr1756viudtr620ts520j5ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,7 @@ class ChooseImage extends StatefulWidget {
 }
 
 class _ChosseImageState extends State<ChooseImage> {
-  final controller = Get.put(Edit());
+  final controller = Get.put(EditGet());
 
   @override
   Widget build(BuildContext context) {

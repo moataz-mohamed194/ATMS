@@ -1,14 +1,16 @@
 import 'package:ATMS/Widget/TextField.dart';
+import 'package:ATMS/get/DepartmentGet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'Department_Screen.dart';
-import 'Edit_Screen.dart';
-import 'Login_Screen.dart';
+import '../general/Edit_Screen.dart';
+import '../login/Login_Screen.dart';
 import 'Requests_Screen.dart';
-import 'Scan_Screen.dart';
+import '../general/Go_To_Scan_Screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -34,7 +36,7 @@ class _MyHomePageState extends State<MainScreen>
     EditScreen(),
     RequestScreen(),
     DepartmentScreen(),
-    ScanScreen()
+    GoToScanScreen()
   ];
   @override
   void initState() {
@@ -62,50 +64,7 @@ class _MyHomePageState extends State<MainScreen>
     );
   }
 
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enter Data'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                TextFileLogin(
-                  hintText: "Reason to leave",
-                  //errorText: validationService.phoneNumber.error,
-                  cursorColor: Colors.grey,
-                  borderSideColor: Colors.grey,
-                  textStyleColor: Colors.grey,
-                  textChange: (vals) {
-                    //   validationService.changePhoneNumber(vals);
-                  },
-                  inputType: TextInputType.name,
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('cancel'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: Text('send'),
-              onPressed: () {
-                print("Send request");
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  final controller = Get.put(DepartmentGet());
 
   @override
   Widget build(BuildContext context) {
@@ -129,26 +88,19 @@ class _MyHomePageState extends State<MainScreen>
             },
           ),
         ),
+        actions: [
+          _bottomNavIndex==2?IconButton(
+            icon: const Icon(Icons.add_outlined),
+            onPressed: () {
+              print("add");
+              controller.addDepartment(context);
+            },
+          ):Container(),
+        ],
       ),
       body: NavigationScreen(
         data[_bottomNavIndex],
       ),
-      floatingActionButton: ScaleTransition(
-        scale: animation,
-        child: FloatingActionButton(
-          elevation: 8,
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_forward,
-            color: Color(0xff373A36),
-          ),
-          onPressed: () {
-            print("hello");
-            _showMyDialog();
-          },
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: iconList,
         backgroundColor: Colors.blue,
@@ -156,7 +108,6 @@ class _MyHomePageState extends State<MainScreen>
         activeColor: Colors.black,
         inactiveColor: Colors.white,
         notchAndCornersAnimation: animation,
-        gapLocation: GapLocation.center,
         onTap: (index) => setState(() => _bottomNavIndex = index),
       ),
     );

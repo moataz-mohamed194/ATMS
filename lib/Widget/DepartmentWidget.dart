@@ -7,9 +7,9 @@ class DepartmentWidget extends StatelessWidget {
   final count;
   final description;
   final action;
-
+  final removeAction;
   const DepartmentWidget(
-      {Key key, this.name, this.count, this.description, this.action})
+      {Key key, this.name, this.count, this.description, this.action,this.removeAction})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -43,6 +43,7 @@ class DepartmentWidget extends StatelessWidget {
                         icon: Icon(Icons.clear),
                         onPressed: () {
                           print("remove");
+                          removeAction();
                         })
                   ],
                 ),

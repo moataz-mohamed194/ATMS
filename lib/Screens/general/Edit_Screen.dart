@@ -2,12 +2,17 @@ import 'package:ATMS/get/EditGet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class EditScreen extends StatelessWidget {
-  final controller = Get.put(Edit());
+  final controller = Get.put(EditGet());
+  //final values = GetStorage();
 
   @override
   Widget build(BuildContext context) {
+    // GetStorage values = GetStorage();
+
+//    print(values.read('userName'));
     // TODO: implement build
     return SafeArea(
         child: Scaffold(
@@ -35,10 +40,9 @@ class EditScreen extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(120)),
-                              child: GetBuilder<Edit>(
+                              child: GetBuilder<EditGet>(
                                 builder: (_) => controller.imageFile == null
-                                    ? Image.asset(
-                                        'images/ATMS View/download.jpeg',
+                                    ? Image.network(controller.img.value,
                                         height: 120,
                                         width: 120,
                                       )
@@ -70,39 +74,41 @@ class EditScreen extends StatelessWidget {
                   },
                 ),
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     // GetX<Edit>(
+              //     //     builder: (_) =>Text(
+              //     //   "UserName:${controller.name.value}",
+              //     //   style: TextStyle(fontSize: 20),
+              //     // )),
+              //     // FlatButton(
+              //     //   child: Text(
+              //     //     "Edit",
+              //     //     style: TextStyle(color: Colors.blue, fontSize: 20),
+              //     //   ),
+              //     //   onPressed: () {
+              //     //     controller.editUserName(context, "UserName", 0);
+              //     //     print("Edit username");
+              //     //   },
+              //     // )
+              //   ],
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "UserName",
+                  GetBuilder<EditGet>(
+                      builder: (_) =>Text(
+                    "PhoneNumber:${controller.phoneNumber.value}",
                     style: TextStyle(fontSize: 20),
-                  ),
+                  )),
                   FlatButton(
                     child: Text(
                       "Edit",
                       style: TextStyle(color: Colors.blue, fontSize: 20),
                     ),
                     onPressed: () {
-                      controller.editUserName(context, "UserName", 0);
-                      print("Edit username");
-                    },
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "UserName",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  FlatButton(
-                    child: Text(
-                      "Edit",
-                      style: TextStyle(color: Colors.blue, fontSize: 20),
-                    ),
-                    onPressed: () {
-                      controller.editUserName(context, "ID", 0);
+                      controller.edit(context, "PhoneNumber", 0);
 
                       print("Edit ID");
                     },
@@ -113,7 +119,7 @@ class EditScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Password",
+                    "Password:${controller.password.value}\n ${controller.pass.value}",
                     style: TextStyle(fontSize: 20),
                   ),
                   FlatButton(
@@ -122,7 +128,7 @@ class EditScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.blue, fontSize: 20),
                     ),
                     onPressed: () {
-                      controller.editUserName(context, "Password", 1);
+                      controller.edit(context, "Password", 1);
 
                       print("Edit Password");
                     },
@@ -136,14 +142,28 @@ class EditScreen extends StatelessWidget {
                     height: 18,
                   ),
                   Text(
-                    "Email@example",
+                    "UserName:${controller.name.value}",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 18,
                   ),
                   Text(
-                    "Status(head,admin)",
+                    "ID:${controller.iD.value}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  Text(
+                    "Department:${controller.department.value}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  Text(
+                    "Status:${controller.position.value}",
                     style: TextStyle(fontSize: 20),
                   ),
                 ],

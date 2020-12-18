@@ -39,6 +39,7 @@ class TextFileLogin extends StatelessWidget {
                 keyboardType: inputType,
                 obscureText: obscure,
                 onChanged: textChange,
+
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     //borderRadius: BorderRadius.all(Radius.circular(40.0)),
@@ -47,6 +48,15 @@ class TextFileLogin extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     // borderRadius: BorderRadius.all(Radius.circular(40.0)),
                     borderSide: BorderSide(color: borderSideColor, width: 2),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    // borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    // borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                    borderSide: BorderSide(color: Colors.red, width: 2),
+
                   ),
                   hintText: "$hintText",
                   helperStyle: TextStyle(
