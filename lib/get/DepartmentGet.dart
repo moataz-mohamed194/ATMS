@@ -1,9 +1,7 @@
 import 'package:ATMS/Widget/TextField.dart';
-import 'package:ATMS/models/Validation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'ValidationGet.dart';
 class DepartmentGet extends GetxController{
   final controller = Get.put(ValidationGet());
@@ -11,7 +9,7 @@ class DepartmentGet extends GetxController{
   Future<void> addDepartment(BuildContext context,){
     return showDialog<void>(
     context: context,
-    barrierDismissible: false, // user must tap button!
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return AlertDialog(
           title: Text('Add Department'),
@@ -27,7 +25,6 @@ class DepartmentGet extends GetxController{
                 textStyleColor: Colors.grey,
                 textChange: (vals) {
                   controller.nameDepartmentValidation(vals);
-                  //   validationService.changePhoneNumber(vals);
                 },
                 inputType: TextInputType.name,
                 hintStyle: TextStyle(color: Colors.grey),
@@ -45,7 +42,6 @@ class DepartmentGet extends GetxController{
                 textStyleColor: Colors.grey,
                 textChange: (vals) {
                   controller.descriptionDepartmentValidation(vals);
-                  //   validationService.changePhoneNumber(vals);
                 },
                 inputType: TextInputType.name,
                 hintStyle: TextStyle(color: Colors.grey),
@@ -72,7 +68,6 @@ class DepartmentGet extends GetxController{
                 .child(controller.nameDepartmentData.value)
                 .set({
               'Name': controller.nameDepartmentData.value,
-
               "Count":0,
               'Description': controller.descriptionDepartmentData.value
             }).whenComplete(() => Navigator.of(context).pop()):print("Error");
@@ -84,9 +79,11 @@ class DepartmentGet extends GetxController{
 
     }
 
+
   var data;
     @override
   Future<void> onInit() async {
+      super.onInit();
       data= FirebaseDatabase.instance.reference().child("Department");
     }
     void removeDepartment(String path){

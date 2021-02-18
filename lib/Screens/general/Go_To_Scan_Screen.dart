@@ -10,12 +10,10 @@ import 'Scan_Screen.dart';
 class GoToScanScreen extends StatelessWidget {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final controller = Get.put(EditGet());
-//  DateTime date = DateTime.now();
-  String dateFormat = DateFormat('dd/MM/yyyy').format(DateTime.now());
+  final String dateFormat = DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
       child: Scaffold(body:
           Center(
@@ -27,7 +25,6 @@ class GoToScanScreen extends StatelessWidget {
             .child('Here').child(dateFormat)
             .child("${controller.iD.value}").onValue,
         builder: (context, snap) {
-          //print(snap.data.snapshot.value.toString());
           if(snap.hasData) {
             return Text(snap.data.snapshot.value.toString() != "null" ?
             "Did you scan ? yes" : "Did you scan ? no"
@@ -44,7 +41,7 @@ class GoToScanScreen extends StatelessWidget {
       Container(
                   width: MediaQuery.of(context).size.width/3,
                   child: FlatButton(child: Text("Scan"),onPressed: (){
-                    Get.to(ScanScreen());//:print("Can't");
+                    Get.to(ScanScreen());
                   },
                   color: Colors.blue,),
                 ),

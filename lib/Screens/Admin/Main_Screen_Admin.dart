@@ -1,6 +1,5 @@
 import 'package:ATMS/Screens/general/Employee_Screen.dart';
 import 'package:ATMS/Screens/general/Go_To_Scan_Screen.dart';
-import 'package:ATMS/Screens/head/Department_Screen.dart';
 import 'package:ATMS/Screens/head/Requests_Screen.dart';
 import 'package:ATMS/Widget/TextField.dart';
 import 'package:ATMS/get/EditGet.dart';
@@ -19,8 +18,7 @@ class MainScreenAdmin extends StatefulWidget {
 
 class _MyHomePageStateAdmin extends State<MainScreenAdmin>
     with SingleTickerProviderStateMixin {
-  var _bottomNavIndex = 0; //default index of first screen
-
+  var _bottomNavIndex = 0;
   AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;
@@ -68,7 +66,7 @@ class _MyHomePageStateAdmin extends State<MainScreenAdmin>
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Enter Data'),
@@ -77,12 +75,10 @@ class _MyHomePageStateAdmin extends State<MainScreenAdmin>
               children: <Widget>[
                 TextFileLogin(
                   hintText: "Reason to leave",
-                  //errorText: validationService.phoneNumber.error,
                   cursorColor: Colors.grey,
                   borderSideColor: Colors.grey,
                   textStyleColor: Colors.grey,
                   textChange: (vals) {
-                    //   validationService.changePhoneNumber(vals);
                   },
                   inputType: TextInputType.name,
                   hintStyle: TextStyle(color: Colors.grey),

@@ -1,9 +1,6 @@
 import 'package:ATMS/Screens/general/Employee_Screen.dart';
 import 'package:ATMS/Widget/DepartmentWidget.dart';
 import 'package:ATMS/get/DepartmentGet.dart';
-import 'package:ATMS/models/department.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

@@ -1,19 +1,12 @@
 import 'package:ATMS/Screens/general/Choose_Image_screen.dart';
 import 'package:ATMS/Widget/TextField.dart';
-import 'package:ATMS/models/Validation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:intl/intl.dart';
-import 'EmployeeGet.dart';
 import 'ValidationGet.dart';
-
 class EditGet extends GetxController {
   onChoseImage(context) {
     showModalBottomSheet(
@@ -48,30 +41,17 @@ class EditGet extends GetxController {
     position="${values.read('position')}".obs;
     department="${values.read('department')}".obs;
     phoneNumber="${values.read('PhoneNumber')}".obs;
-//     print(dateFormat);
-//
-//     here="${((await FirebaseDatabase.instance
-//         .reference()
-//         .child('Here').child(dateFormat)
-//         .child("$iD").once()).
-//     value
-//     )
-//   }".obs;
-// print(here);
   }
-//gdzA.5cvv
   Future<void> openCamera(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    var picture = await ImagePicker().getImage(source: ImageSource.camera);
     imageFile = picture;
-    print("0000000000" + "$picture");
     print(imageFile);
     updateImage(picture);
     update();
   }
 
-  //open gallery to choose between pics in gallery
   Future<void> openGallery(BuildContext context) async {
-    var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var picture = await ImagePicker().getImage(source: ImageSource.gallery);
     imageFile = picture;
     update();
     updateImage(picture);
@@ -82,7 +62,7 @@ class EditGet extends GetxController {
   Future<void> edit(BuildContext context, String node, int i) async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Edit Data'),
@@ -94,17 +74,12 @@ class EditGet extends GetxController {
                           builder: (_) =>TextFileLogin(
                         hintText: "new $node",
                         errorText:
-                        // (node=="UserName")?
-                        // controller.nameEmployee.error:
                         controller.phoneNumber.error,
                         cursorColor: Colors.grey,
                         borderSideColor: Colors.grey,
                         textStyleColor: Colors.grey,
                         textChange: (vals) {
-                          // (node=="UserName")?
-                          // controller.nameEmployeeValidation(vals):
                           controller.phoneNumberValidation(vals);
-                          //   validationService.changePhoneNumber(vals);
                         },
                         inputType: TextInputType.name,
                         hintStyle: TextStyle(color: Colors.grey),
@@ -124,7 +99,6 @@ class EditGet extends GetxController {
                         textChange: (vals) {
                           controller.validationOldPassword(vals,pass.value);
 
-                          //   validationService.changePhoneNumber(vals);
                         },
                         inputType: TextInputType.name,
                         hintStyle: TextStyle(color: Colors.grey),
@@ -142,7 +116,6 @@ class EditGet extends GetxController {
                         textStyleColor: Colors.grey,
                         textChange: (vals) {
                           controller.passwordEmployeeValidation(vals);
-                          //   validationService.changePhoneNumber(vals);
                         },
                         inputType: TextInputType.name,
                         hintStyle: TextStyle(color: Colors.grey),
@@ -155,8 +128,6 @@ class EditGet extends GetxController {
                           builder: (_) =>TextFileLogin(
                         hintText: "repeat new $node",
                         errorText:controller.repeatPassword.error,
-
-                            //errorText: validationService.phoneNumber.error,
                         cursorColor: Colors.grey,
                         borderSideColor: Colors.grey,
                         textStyleColor: Colors.grey,
@@ -179,28 +150,17 @@ class EditGet extends GetxController {
             FlatButton(
               child: Text('Edit'),
               onPressed: () {
-                //name="Ddddddddddddddd".obs;
                 print("Send request");
-                // if(node=="UserName"&&controller.nameEmployee.value!=null) {
-                //   updateData(controller.nameEmployee.value,"userName",iD.value,department.value).whenComplete(() {
-                //     values.write('userName', controller.nameEmployee.value);
-                //     name="${values.read('userName')}".obs;
-                //     Navigator.of(context).pop();
-                //   });
-                //   print("name:${controller.nameEmployee.value}");
-                // }else
                   if(node=="PhoneNumber"&&controller.phoneNumber.value!=null) {
                   updateData(controller.phoneNumber.value,"PhoneNumber",iD.value,department.value).whenComplete(() {
                     values.write('PhoneNumber', controller.phoneNumber.value);
                     phoneNumber="${values.read('PhoneNumber')}".obs;
                     Navigator.of(context).pop();
-                    print("phonenumber:${controller.phoneNumber.value}");
                   });
                 }else if(node=="Password"&&controller.oldPassword.value!=null&&controller.passwordEmployee.value!=null&&controller.repeatPassword.value!=null){
                   updateData(controller.passwordEmployee.value,"password",iD.value,department.value).whenComplete(() {
                     values.write('password', controller.passwordEmployee.value);
                     phoneNumber="${values.read('password')}".obs;
-                    print("old:${controller.oldPassword.value}, new:${controller.passwordEmployee.value}");
                     Navigator.of(context).pop();
 
                   });
@@ -224,7 +184,6 @@ class EditGet extends GetxController {
   }
 
   Future<void> updateImage(var imageFile0) async{
-   print(imageFile0);
    firebase_storage.UploadTask uploadTask;
    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
        .ref()
@@ -234,7 +193,6 @@ class EditGet extends GetxController {
        customMetadata: {'picked-file-path': imageFile0.path});
    uploadTask = ref.putData(await imageFile0.readAsBytes(), metadata);
    final link = await ref.getDownloadURL();
-   print(link);
    uploadTask.whenComplete(() {
      FirebaseDatabase.instance
            .reference()

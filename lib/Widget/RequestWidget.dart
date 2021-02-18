@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:ATMS/get/EmployeeGet.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CustomPopupMenu {
@@ -19,7 +21,9 @@ class RequestWidget extends StatelessWidget {
   final id;
   final image;
   final color;
+  final password;
   final department;
+  final position;
   final reason;
   final i;
 
@@ -28,13 +32,16 @@ class RequestWidget extends StatelessWidget {
       this.userName,
       this.id,
       this.image,
+        this.password,
+        this.position,
       this.department,
         this.reason,
       this.i,
       this.color})
       : super(key: key);
+  final controller = Get.put(EmployeeGet());
 
-  Widget _selectPopup() => PopupMenuButton<int>(
+  Widget _selectPopup(BuildContext context) => PopupMenuButton<int>(
         itemBuilder: (context) => [
           PopupMenuItem(
             value: 1,
@@ -50,15 +57,15 @@ class RequestWidget extends StatelessWidget {
         },
         onSelected: (value) {
           if (value == 1) {
+            controller.editDepartment(context,id,department,position,image,userName,password);
           } else if (value == 2) {
-            print("remove $value");
+            controller.refusalEmployee(id,department);
           }
         },
         icon: Icon(Icons.more_vert),
       );
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Card(
       child: Container(
         height: 117,
@@ -109,7 +116,6 @@ class RequestWidget extends StatelessWidget {
                               "id":id,
                               "img":image
                             }).whenComplete(()  {
-                              //updateCount(department);
                               FirebaseDatabase.instance
                                   .reference()
                                   .child('requests')
@@ -119,9 +125,7 @@ class RequestWidget extends StatelessWidget {
                                   .child('Here')
                                   .child(dateFormat).child(id).remove();
 
-                              //Navigator.of(context).pop();
                             });
-                            print("accepted $id");
                           },
                         ),
                         IconButton(
@@ -142,14 +146,11 @@ class RequestWidget extends StatelessWidget {
                               "id":id,
                               "img":image
                             }).whenComplete(()  {
-                              //updateCount(department);
                               FirebaseDatabase.instance
                                   .reference()
                                   .child('requests')
                                   .child(dateFormat).child(id).remove();
 
-                              print("reject $id");
-                              //Navigator.of(context).pop();
                             });
                           },
                         )
@@ -180,7 +181,7 @@ class RequestWidget extends StatelessWidget {
             ),
              Column(
               children: [
-                _selectPopup(),
+                _selectPopup(context),
                 CustomPaint(
                   painter: OpenPainter(color),
                 ),

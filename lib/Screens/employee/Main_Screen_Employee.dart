@@ -16,8 +16,7 @@ class MainScreenEmployee extends StatefulWidget {
 
 class _MyHomePageStateEmployee extends State<MainScreenEmployee>
     with SingleTickerProviderStateMixin {
-  var _bottomNavIndex = 0; //default index of first screen
-
+  var _bottomNavIndex = 0;
   AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;

@@ -9,10 +9,10 @@ class ChooseImage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ChosseImageState createState() => _ChosseImageState();
+  _ChooseImageState createState() => _ChooseImageState();
 }
 
-class _ChosseImageState extends State<ChooseImage> {
+class _ChooseImageState extends State<ChooseImage> {
   final controller = Get.put(EditGet());
 
   @override
@@ -35,8 +35,6 @@ class _ChosseImageState extends State<ChooseImage> {
             onTap: () {
               setState(() {
                 controller.openCamera(context);
-                // Provider.of<SignUpProvider>(context, listen: false)
-                //     .openCamera(context);
               });
             },
             child: Container(
@@ -62,8 +60,6 @@ class _ChosseImageState extends State<ChooseImage> {
           GestureDetector(
             onTap: () {
               controller.openGallery(context);
-              // Provider.of<SignUpProvider>(context, listen: false)
-              //     .openGallery(context);
             },
             child: Container(
               width: MediaQuery.of(context).size.width / 2,

@@ -13,9 +13,6 @@ class ScanGet extends GetxController {
   void onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      //setState(() {
-      //qrText = scanData;
-      //});
       if(scanData!=null){
         action();
       }
@@ -26,6 +23,8 @@ class ScanGet extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
+
     DateTime date = DateTime.now();
     String dateFormat = DateFormat('dd/MM/yyyy').format(date);
 
@@ -53,8 +52,6 @@ class ScanGet extends GetxController {
       "Img":img,
       "department":department
     }).whenComplete(()  {
-      // controller0.here.value='';
-      // update();
       Get.back();
 
     });

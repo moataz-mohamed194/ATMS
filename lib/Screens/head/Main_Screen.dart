@@ -1,11 +1,9 @@
-import 'package:ATMS/Widget/TextField.dart';
 import 'package:ATMS/get/DepartmentGet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'Department_Screen.dart';
 import '../general/Edit_Screen.dart';
 import '../login/Login_Screen.dart';
@@ -19,8 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MyHomePageState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
-  var _bottomNavIndex = 0; //default index of first screen
-
+  var _bottomNavIndex = 0;
   AnimationController _animationController;
   Animation<double> animation;
   CurvedAnimation curve;

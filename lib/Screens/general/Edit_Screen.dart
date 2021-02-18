@@ -2,18 +2,12 @@ import 'package:ATMS/get/EditGet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class EditScreen extends StatelessWidget {
   final controller = Get.put(EditGet());
-  //final values = GetStorage();
 
   @override
   Widget build(BuildContext context) {
-    // GetStorage values = GetStorage();
-
-//    print(values.read('userName'));
-    // TODO: implement build
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -74,26 +68,7 @@ class EditScreen extends StatelessWidget {
                   },
                 ),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     // GetX<Edit>(
-              //     //     builder: (_) =>Text(
-              //     //   "UserName:${controller.name.value}",
-              //     //   style: TextStyle(fontSize: 20),
-              //     // )),
-              //     // FlatButton(
-              //     //   child: Text(
-              //     //     "Edit",
-              //     //     style: TextStyle(color: Colors.blue, fontSize: 20),
-              //     //   ),
-              //     //   onPressed: () {
-              //     //     controller.editUserName(context, "UserName", 0);
-              //     //     print("Edit username");
-              //     //   },
-              //     // )
-              //   ],
-              // ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

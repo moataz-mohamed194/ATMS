@@ -1,15 +1,10 @@
-import 'package:ATMS/Screens/Admin/Main_Screen_Admin.dart';
-import 'package:ATMS/Screens/employee/Main_Screen_Employee.dart';
 import 'package:ATMS/Widget/Button.dart';
 import 'package:ATMS/Widget/TextField.dart';
 import 'package:ATMS/get/LoginGet.dart';
 import 'package:ATMS/get/ValidationGet.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../head/Main_Screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final controller = Get.put(ValidationGet());
@@ -17,7 +12,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -40,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                       borderSideColor: Colors.grey,
                       textStyleColor: Colors.grey,
                       textChange: (vals) {
-                          controller.idEmployeeValidation(vals);
+                          controller.idEmployeeValidation(vals,false);
                       },
                       inputType: TextInputType.number,
                       hintStyle: TextStyle(color: Colors.grey),
@@ -74,23 +68,7 @@ class LoginScreen extends StatelessWidget {
                       borderColor: Colors.grey,
                       textColor: Colors.white,
                       onPressed: () async {
-                        //admin
-                        //Get.off(MainScreenAdmin());
-                        //employee
-                        //Get.off(MainScreenEmployee());
-                        //head
-//                        Get.off(MainScreen());
-                        controller.boolLogin==true?
-                            controller0.loginMethod(context):print("Error");
-                        // FirebaseDatabase.instance
-                        //     .reference()
-                        //     .child('Account')
-                        //     .set({
-                        //   'PhoneNumber': "phone",
-                        //   'Name': "name",
-                        //   'Password': "password",
-                        //   'image': "imageString"
-                        // });
+                            controller0.loginMethod(context);
                       }),
                 ],
               )),

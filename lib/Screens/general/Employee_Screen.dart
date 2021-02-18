@@ -9,13 +9,12 @@ class EmployeeScreen extends StatelessWidget {
   final bool head;
   final String department;
   const EmployeeScreen({Key key, this.head, this.department})
-      : /* assert(head==true),assert(department=="dd"),*/ super(key: key);
+      :  super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var controller0 = Get.put(EditGet());
 
-    // TODO: implement build
     var controller = Get.put(EmployeeGet());
   List ids=[];
     return SafeArea(
@@ -29,7 +28,6 @@ class EmployeeScreen extends StatelessWidget {
                 ? IconButton(
                     icon: const Icon(Icons.add_outlined),
                     onPressed: () {
-                      print("add");
                       controller.addDepartment(context, department);
                     },
                   )
@@ -54,18 +52,15 @@ class EmployeeScreen extends StatelessWidget {
                             child:ListView.builder(
                               itemCount: item.length,
                               itemBuilder: (context, index) {
-                                print(item);
                                 ids.add(item[index]['key']);
                                 return GetBuilder<EmployeeGet>(
                                     builder: (_) => RequestWidget(
-
                                       image:item[index]['img'],
-                                      //'images/ATMS View/download.jpeg',
                                       department:item[index]['department'],
-                                      //'mobile department',
-                                      id: item[index]['key'],//'19821353486895432',
+                                      id: item[index]['key'],
                                       userName: item[index]['userName'],
-                                      //'Moataz mohamed saad',
+                                      password:item[index]['password'],
+                                      position: item[index]['position'],
                                       i: 1,
                                       color: "b",
                                     ));
@@ -90,19 +85,17 @@ class EmployeeScreen extends StatelessWidget {
                             child:ListView.builder(
                               itemCount: item.length,
                               itemBuilder: (context, index) {
-                                print(item);
 
                                 ids.add(item[index]['key']);
                                 return GetBuilder<EmployeeGet>(
                                     builder: (_) => RequestWidget(
 
                                       image:"${item[index]['Img']}",
-                                      //'images/ATMS View/download.jpeg',
                                       department:"${item[index]['department']}",
-                                      //'mobile department',
-                                      id: "${item[index]['key']}",//'19821353486895432',
+                                      position: item[index]['position'],
+                                      id: "${item[index]['key']}",
+                                      password:item[index]['password'],
                                       userName: "${item[index]['name']}",
-                                      //'Moataz mohamed saad',
                                       reason: "",
                                       i: 1,
                                       color: "g",
@@ -113,44 +106,6 @@ class EmployeeScreen extends StatelessWidget {
                     return Container();
                   }
                 }),
-            // StreamBuilder(
-            //     stream: controller.data2.onValue,
-            //     builder: (context, snap) {
-            //       if (snap.hasData &&
-            //           !snap.hasError &&
-            //           snap.data.snapshot.value != null) {
-            //         Map data = snap.data.snapshot.value;
-            //         List item = [];
-            //         data.forEach(
-            //                 (index, data) => item.add({"key": index, ...data}));
-            //         return Expanded(
-            //             child: SizedBox(
-            //                 child:ListView.builder(
-            //                   itemCount: item.length,
-            //                   itemBuilder: (context, index) {
-            //                     print(item);
-            //
-            //                     ids.add(item[index]['key']);
-            //                     return GetBuilder<EmployeeGet>(
-            //                         builder: (_) => RequestWidget(
-            //
-            //                           image:"${item[index]['img']}",
-            //                           //'images/ATMS View/download.jpeg',
-            //                           department:"${item[index]['department']}",
-            //                           //'mobile department',
-            //                           id: "${item[index]['key']}",//'19821353486895432',
-            //                           userName: "${item[index]['userName']}",
-            //                           //'Moataz mohamed saad',
-            //                           reason: "",
-            //                           i: 1,
-            //                           color: "y",
-            //                         ));
-            //                   },
-            //                 )));
-            //       }else{
-            //         return Container();
-            //       }
-            //     }),
             StreamBuilder(
                 stream: controller.data3.onValue,
                 builder: (context, snap) {
@@ -167,15 +122,16 @@ class EmployeeScreen extends StatelessWidget {
                               itemCount: item.length,
                               itemBuilder: (context, index) {
                                 Iterable x = item[index].values;
-                                print("${item[index].keys.last} == ${controller0.department.value}");
+
                                 if (item[index].keys.last == controller0.department.value&&!ids.contains(x.last['id'])) {
-                                  print("qq:$x");
                                   return GetBuilder<EmployeeGet>(
                                       builder: (_) => RequestWidget(
                                         image: "${x.last['img']}",
                                         department: "${item[index].keys.last}",
-                                        id: "${x.last['id']}", //'19821353486895432',
+                                        id: "${x.last['id']}",
                                         userName: "${x.last['userName']}",
+                                        password:x.last['password'],
+                                        position: x.last['position'],
                                         i: 1,
                                         color: "r",
                                       ));
@@ -209,12 +165,15 @@ class EmployeeScreen extends StatelessWidget {
                                   itemBuilder: (context, index) {
                                     Iterable x = item[index].values;
                                     if (item[index].keys.last == department) {
+
                                       return GetBuilder<EmployeeGet>(
                                           builder: (_) => RequestWidget(
                                             image: "${x.last['img']}",
                                             department: "${item[index].keys.last}",
-                                            id: "${x.last['id']}", //'19821353486895432',
+                                            id: "${x.last['id']}",
                                             userName: "${x.last['userName']}",
+                                            password:x.last['password'],
+                                            position: x.last['position'],
                                             i: 1,
                                             color: "b",
                                           ));

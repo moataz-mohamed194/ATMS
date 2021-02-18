@@ -4,11 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class IntroScreen extends StatelessWidget {
-//  final controller = ;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     Get.put(Introduction()).timer(context);
     return SafeArea(
       child: Scaffold(

@@ -1,11 +1,9 @@
 import 'dart:async';
-
 import 'package:ATMS/Screens/login/Login_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../main.dart';
 
 class Introduction extends GetxController {
   void timer(BuildContext context) {

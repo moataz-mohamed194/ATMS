@@ -13,7 +13,6 @@ class DepartmentWidget extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return InkWell(
       onTap: () {
         print("Department");
@@ -23,7 +22,6 @@ class DepartmentWidget extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width - 24,
           margin: EdgeInsets.only(bottom: 20),
-          // height: 100, //MediaQuery.of(context).size.height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
